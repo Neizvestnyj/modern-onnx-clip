@@ -39,6 +39,7 @@ dev = [
     "ruff>=0.3.0",
     "pyright>=1.1.350",
     "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
     "pre-commit>=3.6.0",
 ]
 
@@ -62,3 +63,8 @@ select = ["E", "F", "I", "B", "UP"] # Isort, Bugbear, pyUpgrade
 [tool.pyright]
 include = ["src"]
 venvPath = ".venv"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"

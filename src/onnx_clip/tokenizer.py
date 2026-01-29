@@ -55,10 +55,11 @@ def bytes_to_unicode() -> dict[int, str]:
     Returns:
         Dict[int, str]: Mapping from byte integer values to unicode characters.
     """
+    # Use numeric codes instead of unicode literals to avoid encoding issues
     bs = (
         list(range(ord("!"), ord("~") + 1))
-        + list(range(ord("б╕б"), ord("п┬┐") + 1))
-        + list(range(ord("пВб"), ord("п┐┐") + 1))
+        + list(range(0xA1, 0xAC + 1))  # ¡ to ¬
+        + list(range(0xAE, 0xFF + 1))  # ® to ÿ
     )
     cs = bs[:]
     n = 0
@@ -234,10 +235,9 @@ class SimpleTokenizer:
     @property
     def pat(self) -> str:
         """Regex pattern for tokenization."""
-        # Note: Backslashes for escaping pipes | must be preserved.
         return (
             r"<\|startoftext\|>|<\|endoftext\|>|'s|'t|'re|'ve|'m|'ll|'d|"
-            r"[\p{L}]+|[\p{N}]+[^\s\p{L}\p{N}]+"
+            r"[\p{L}]+|[\p{N}]|[^\s\p{L}\p{N}]+"
         )
 
     def tokenize(self, texts: str | list[str], context_length: int = 77) -> np.ndarray:

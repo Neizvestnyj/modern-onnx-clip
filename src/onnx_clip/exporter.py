@@ -106,7 +106,7 @@ class Exporter:
 
         torch.onnx.export(  # type: ignore
             visual_wrapper,
-            dummy_input_image,
+            (dummy_input_image,),
             os.path.join(self.output_dir, "visual.onnx"),
             input_names=["image"],
             output_names=["embedding"],
@@ -119,7 +119,7 @@ class Exporter:
 
         # 3. Export Textual
         print("Exporting Textual Model...")
-        context_length = model.context_length
+        context_length = int(model.context_length)  # type: ignore
         dummy_input_text = torch.zeros(  # type: ignore
             (1, context_length),
             dtype=torch.long,  # type: ignore
@@ -148,5 +148,23 @@ class Exporter:
             opset_version=self.opset,
         )
 
+        # 4. Validate ONNX models
+        print("Validating ONNX models...")
+        self._validate_onnx(os.path.join(self.output_dir, "visual.onnx"))
+        self._validate_onnx(os.path.join(self.output_dir, "textual.onnx"))
+
         print("Export complete!")
         print(f"Models saved to {self.output_dir}")
+
+    def _validate_onnx(self, path: str) -> None:
+        """Validates an ONNX model file.
+
+        Args:
+            path (str): Path to the ONNX model file.
+
+        Raises:
+            onnx.checker.ValidationError: If the model is invalid.
+        """
+        model = onnx.load(path)  # type: ignore
+        onnx.checker.check_model(model)  # type: ignore
+        print(f"  ✓ {os.path.basename(path)} is valid")

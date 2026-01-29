@@ -1,4 +1,4 @@
-.PHONY: install format lint test clean check
+.PHONY: install format lint test clean check all
 
 install:
 	uv sync --all-extras
@@ -12,8 +12,18 @@ lint:
 	uv run ruff check .
 	uv run pyright
 
+test:
+	uv run pytest
+
+test-cov:
+	uv run pytest --cov=onnx_clip --cov-report=term-missing
+
 clean:
 	rm -rf build dist .egg-info
 	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type d -name ".pytest_cache" -exec rm -rf {} +
+	find . -type f -name "*.pyc" -delete
 
-check: format lint
+check: format lint test
+
+all: install check
