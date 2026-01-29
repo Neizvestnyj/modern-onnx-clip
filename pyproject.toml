@@ -1,6 +1,6 @@
 [project]
 name = "modern-onnx-clip"
-version = "0.1.0"
+version = "0.1.1"
 description = "A production-ready, zero-dependency ONNX runtime for OpenAI CLIP and OpenCLIP models."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -18,6 +18,12 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Neizvestnyj/modern-onnx-clip"
+Repository = "https://github.com/Neizvestnyj/modern-onnx-clip"
+Issues = "https://github.com/Neizvestnyj/modern-onnx-clip/issues"
+Documentation = "https://github.com/Neizvestnyj/modern-onnx-clip#readme"
 
 dependencies = [
     "numpy>=2.0.0",
