@@ -143,7 +143,6 @@ class SimpleTokenizer:
         self.byte_encoder = bytes_to_unicode()
         self.byte_decoder = {v: k for k, v in self.byte_encoder.items()}
 
-        merges = []
         with gzip.open(bpe_path, "rb") as f:
             data = f.read().decode("utf-8")
 
@@ -157,8 +156,9 @@ class SimpleTokenizer:
             "<|endoftext|>": "<|endoftext|>",
         }
 
-        vocab = list(bytes_to_unicode().values())
-        vocab = [v + "</w>" for v in vocab]
+        base_vocab = list(bytes_to_unicode().values())
+        vocab = base_vocab + [v + "</w>" for v in base_vocab]
+
         for merge in merges:
             vocab.append("".join(merge))
         vocab.extend(["<|startoftext|>", "<|endoftext|>"])
@@ -227,9 +227,7 @@ class SimpleTokenizer:
         text = whitespace_clean(basic_clean(text)).lower()
         for token in re.findall(self.pat, text):
             token = "".join(self.byte_encoder[b] for b in token.encode("utf-8"))
-            bpe_tokens.extend(
-                self.encoder[bpe_token] for bpe_token in self.bpe(token).split(" ")
-            )
+            bpe_tokens.extend(self.encoder[bpe_token] for bpe_token in self.bpe(token).split(" "))
         return bpe_tokens
 
     @property

@@ -161,9 +161,7 @@ class TestGetImageEmbedding:
             mock_session.get_inputs.return_value = [MagicMock(name="image")]
             mock_session.get_outputs.return_value = [MagicMock(name="embedding")]
             # Return unnormalized embedding
-            mock_session.run.return_value = [
-                np.array([[3.0, 4.0]], dtype=np.float32)
-            ]  # norm = 5
+            mock_session.run.return_value = [np.array([[3.0, 4.0]], dtype=np.float32)]  # norm = 5
             model.visual_session = mock_session
 
             img = Image.new("RGB", (256, 256), color="red")
@@ -242,9 +240,7 @@ class TestGetTextEmbedding:
             mock_session = MagicMock()
             mock_session.get_inputs.return_value = [MagicMock(name="text")]
             mock_session.get_outputs.return_value = [MagicMock(name="embedding")]
-            mock_session.run.return_value = [
-                np.array([[3.0, 4.0]], dtype=np.float32)
-            ]  # norm = 5
+            mock_session.run.return_value = [np.array([[3.0, 4.0]], dtype=np.float32)]  # norm = 5
             model.textual_session = mock_session
 
             result = model.get_text_embedding("test")

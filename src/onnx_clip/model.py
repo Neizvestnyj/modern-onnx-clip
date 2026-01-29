@@ -52,9 +52,7 @@ class OnnxClip:
             if "CUDAExecutionProvider" in ort.get_available_providers():
                 self.providers = ["CUDAExecutionProvider", "CPUExecutionProvider"]
             else:
-                self.logger.warning(
-                    "CUDA requested but not available. Fallback to CPU."
-                )
+                self.logger.warning("CUDA requested but not available. Fallback to CPU.")
 
         # Load Config
         self.config_path = os.path.join(model_dir, "config.json")
@@ -71,14 +69,10 @@ class OnnxClip:
         self.textual_session = None
 
         if os.path.exists(self.visual_path):
-            self.visual_session = ort.InferenceSession(
-                self.visual_path, providers=self.providers
-            )
+            self.visual_session = ort.InferenceSession(self.visual_path, providers=self.providers)
 
         if os.path.exists(self.textual_path):
-            self.textual_session = ort.InferenceSession(
-                self.textual_path, providers=self.providers
-            )
+            self.textual_session = ort.InferenceSession(self.textual_path, providers=self.providers)
 
         # Initialize Tokenizer
         tokenizer_json = os.path.join(model_dir, "tokenizer.json")
@@ -109,9 +103,7 @@ class OnnxClip:
         with open(path) as f:
             return json.load(f)
 
-    def get_image_embedding(
-        self, images: Image.Image | list[Image.Image] | np.ndarray
-    ) -> np.ndarray:
+    def get_image_embedding(self, images: Image.Image | list[Image.Image] | np.ndarray) -> np.ndarray:
         """Generates embeddings for one or more images.
 
         Args:

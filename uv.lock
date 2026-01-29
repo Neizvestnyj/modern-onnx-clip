@@ -142,6 +142,19 @@ wheels = [
 ]
 
 [[package]]
+name = "clip"
+version = "1.0"
+source = { git = "https://github.com/openai/CLIP.git#dcba3cb2e2827b402d2701e7e1c7d9fed8a20ef1" }
+dependencies = [
+    { name = "ftfy" },
+    { name = "packaging" },
+    { name = "regex" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "tqdm" },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -636,6 +649,7 @@ dependencies = [
 
 [package.optional-dependencies]
 dev = [
+    { name = "clip" },
     { name = "pre-commit" },
     { name = "pyright" },
     { name = "pytest" },
@@ -651,6 +665,7 @@ export = [
 
 [package.metadata]
 requires-dist = [
+    { name = "clip", marker = "extra == 'dev'", git = "https://github.com/openai/CLIP.git" },
     { name = "ftfy", specifier = ">=6.1.0" },
     { name = "numpy", specifier = ">=2.0.0" },
     { name = "onnx", marker = "extra == 'export'", specifier = ">=1.15.0" },

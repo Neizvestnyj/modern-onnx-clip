@@ -22,9 +22,7 @@ class Exporter:
         device (str): Device to run export on.
     """
 
-    def __init__(
-        self, model_name: str, pretrained: str, output_dir: str, opset: int = 14
-    ):
+    def __init__(self, model_name: str, pretrained: str, output_dir: str, opset: int = 14):
         """Initializes the Exporter.
 
         Args:
@@ -34,9 +32,7 @@ class Exporter:
             opset (int, optional): ONNX opset version.
         """
         if torch is None or open_clip is None:
-            raise ImportError(
-                "Please install 'torch' and 'open-clip-torch' for exporter."
-            )
+            raise ImportError("Please install 'torch' and 'open-clip-torch' for exporter.")
 
         self.model_name = model_name
         self.pretrained = pretrained
@@ -71,9 +67,7 @@ class Exporter:
                 if hasattr(p, "transforms"):
                     for t in p.transforms:
                         if hasattr(t, "size"):
-                            image_size = (
-                                t.size if isinstance(t.size, int) else t.size[0]
-                            )
+                            image_size = t.size if isinstance(t.size, int) else t.size[0]
                             break
 
         config = {

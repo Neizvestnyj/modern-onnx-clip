@@ -12,10 +12,7 @@ def convert_command(args: argparse.Namespace):
     try:
         from .exporter import Exporter
     except ImportError:
-        print(
-            "Error: Export dependencies not installed. "
-            "Run `pip install .[export]` or `uv pip install .[export]`"
-        )
+        print("Error: Export dependencies not installed. Run `pip install .[export]` or `uv pip install .[export]`")
         sys.exit(1)
 
     print(f"Converting {args.model} ({args.pretrained}) to ONNX...")
@@ -72,31 +69,21 @@ def main():
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # Convert
-    convert_parser = subparsers.add_parser(
-        "convert", help="Convert OpenCLIP model to ONNX"
-    )
-    convert_parser.add_argument(
-        "--model", type=str, default="ViT-B-32", help="Model architecture"
-    )
+    convert_parser = subparsers.add_parser("convert", help="Convert OpenCLIP model to ONNX")
+    convert_parser.add_argument("--model", type=str, default="ViT-B-32", help="Model architecture")
     convert_parser.add_argument(
         "--pretrained",
         type=str,
         default="laion2b_s34b_b79k",
         help="Pretrained weights tag",
     )
-    convert_parser.add_argument(
-        "--output", type=str, required=True, help="Output directory"
-    )
-    convert_parser.add_argument(
-        "--opset", type=int, default=14, help="ONNX Opset version"
-    )
+    convert_parser.add_argument("--output", type=str, required=True, help="Output directory")
+    convert_parser.add_argument("--opset", type=int, default=14, help="ONNX Opset version")
     convert_parser.set_defaults(func=convert_command)
 
     # Run
     run_parser = subparsers.add_parser("run", help="Run inference")
-    run_parser.add_argument(
-        "--model-dir", type=str, required=True, help="Path to model directory"
-    )
+    run_parser.add_argument("--model-dir", type=str, required=True, help="Path to model directory")
     run_parser.add_argument("--image", type=str, help="Path to image file")
     run_parser.add_argument("--text", type=str, help="Text query")
     run_parser.set_defaults(func=run_command)
