@@ -19,12 +19,6 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
-[project.urls]
-Homepage = "https://github.com/Neizvestnyj/modern-onnx-clip"
-Repository = "https://github.com/Neizvestnyj/modern-onnx-clip"
-Issues = "https://github.com/Neizvestnyj/modern-onnx-clip/issues"
-Documentation = "https://github.com/Neizvestnyj/modern-onnx-clip#readme"
-
 dependencies = [
     "numpy>=2.0.0",
     "onnxruntime>=1.17.0",
@@ -34,6 +28,12 @@ dependencies = [
     "tokenizers>=0.19.0",
     "requests>=2.31.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Neizvestnyj/modern-onnx-clip"
+Repository = "https://github.com/Neizvestnyj/modern-onnx-clip"
+Issues = "https://github.com/Neizvestnyj/modern-onnx-clip/issues"
+Documentation = "https://github.com/Neizvestnyj/modern-onnx-clip#readme"
 
 [project.optional-dependencies]
 export = [
