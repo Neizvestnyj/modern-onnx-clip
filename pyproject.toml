@@ -1,6 +1,6 @@
 [project]
 name = "modern-onnx-clip"
-version = "0.1.1"
+version = "0.1.2"
 description = "A production-ready, zero-dependency ONNX runtime for OpenAI CLIP and OpenCLIP models."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -40,6 +40,7 @@ export = [
     "torch>=2.2.0",
     "open-clip-torch>=2.24.0",
     "onnx>=1.15.0",
+    "onnxscript>=0.1.0",
 ]
 dev = [
     "ruff>=0.3.0",
