@@ -4,16 +4,6 @@ import numpy as np
 import pytest
 from PIL import Image
 
-# Check if required libraries are installed
-try:
-    import clip
-    import onnx
-    import torch
-except ImportError:
-    torch = None
-    clip = None
-    onnx = None
-
 from onnx_clip import OnnxClip
 
 MODEL_DIR = os.environ.get("ONNX_CLIP_MODEL_DIR")
@@ -28,11 +18,14 @@ TEXTS = ["a photo of a cat"]
 RELAXED_COS_DIFF = 0.05
 
 
-@pytest.mark.skipif(torch is None or clip is None or onnx is None, reason="dev dependencies not installed")
 @pytest.mark.skipif(
     not MODEL_DIR or not os.path.exists(MODEL_DIR), reason="ONNX_CLIP_MODEL_DIR not set or does not exist"
 )
 def test_onnx_vs_torch_consistency():
+    clip = pytest.importorskip("clip")
+    torch = pytest.importorskip("torch")
+    pytest.importorskip("onnx")
+
     if BATCH != len(TEXTS):
         raise ValueError(f"Batch size ({BATCH}) does not match number of texts ({len(TEXTS)})")
 

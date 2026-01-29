@@ -3,22 +3,18 @@ import os
 import numpy as np
 import pytest
 
-try:
-    import clip
-except ImportError:
-    clip = None
-
 from onnx_clip import OnnxClip
 
 # Use environment variable to allow local configuration
 MODEL_DIR = os.environ.get("ONNX_CLIP_MODEL_DIR")
 
 
-@pytest.mark.skipif(clip is None, reason="dev dependencies not installed")
 @pytest.mark.skipif(
     not MODEL_DIR or not os.path.exists(MODEL_DIR), reason="ONNX_CLIP_MODEL_DIR not set or does not exist"
 )
 def test_tokenizer_consistency():
+    clip = pytest.importorskip("clip")
+
     # 1. Tokenization via PyTorch CLIP
     print("--- PyTorch Tokenizer ---")
     text = ["a photo of a cat"]
