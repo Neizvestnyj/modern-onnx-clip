@@ -35,14 +35,23 @@ Issues = "https://github.com/Neizvestnyj/modern-onnx-clip/issues"
 Documentation = "https://github.com/Neizvestnyj/modern-onnx-clip#readme"
 
 [project.optional-dependencies]
-cpu = ["onnxruntime>=1.17.0"]
-gpu = ["onnxruntime-gpu>=1.17.0"]
+cpu = [
+    "onnxruntime>=1.17.0,<1.21.0; python_version < '3.11'",
+    "onnxruntime>=1.21.0; python_version >= '3.11'",
+]
+
+gpu = [
+    "onnxruntime-gpu>=1.17.0,<1.21.0; python_version < '3.11'",
+    "onnxruntime-gpu>=1.21.0; python_version >= '3.11'",
+]
+
 export = [
     "torch>=2.2.0",
     "open-clip-torch>=2.24.0",
     "onnx>=1.15.0",
     "onnxscript>=0.1.0",
 ]
+
 dev = [
     "ruff>=0.10.0",
     "pyright>=1.1.350",
