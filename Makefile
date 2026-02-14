@@ -1,8 +1,13 @@
-.PHONY: install format lint test clean check all
+.PHONY: install install-cpu install-gpu format lint test clean check all
 
-install:
-	uv sync --all-extras
+install: install-cpu
 	uv run pre-commit install
+
+install-cpu:
+	uv sync --extra cpu --extra dev --extra export
+
+install-gpu:
+	uv sync --extra gpu --extra dev --extra export
 
 format:
 	uv run ruff format .

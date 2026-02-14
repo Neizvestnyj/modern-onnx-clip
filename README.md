@@ -23,9 +23,9 @@ engine powered by `onnxruntime`, `numpy`, and `pillow`.
 If you only need to run models, install the base package. This **does not** install PyTorch.
 
 ```bash
-pip install modern-onnx-clip
-# or with uv
-uv add modern-onnx-clip
+uv add "modern-onnx-clip[cpu]"
+# or for GPU support
+uv add "modern-onnx-clip[gpu]"
 ```
 
 ### For Development & Exporting
@@ -91,11 +91,10 @@ onnx-clip run --model-dir ./models/vit-b-32 --image cat.jpg --text "a cute cat"
 
 ## ⚙️ GPU Support
 
-To run on NVIDIA GPUs, install `onnxruntime-gpu` instead of the standard `onnxruntime`.
+To run on NVIDIA GPUs, simply install with the `[gpu]` extra:
 
 ```bash
-pip uninstall onnxruntime
-pip install onnxruntime-gpu
+uv add "modern-onnx-clip[gpu]"
 ```
 
 Then initialize the model with `device="cuda"`.
@@ -113,10 +112,10 @@ We use `pytest` for testing.
 
 ### Standard Tests
 
-Run the standard test suite (does not require PyTorch/CLIP):
+Run the standard test suite (ensure you have installed `[cpu]` or `[gpu]` extra):
 
 ```bash
-pytest
+uv run --extra cpu pytest
 ```
 
 ### Manual Verification Tests

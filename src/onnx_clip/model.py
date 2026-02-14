@@ -3,7 +3,12 @@ import logging
 import os
 
 import numpy as np
-import onnxruntime as ort
+
+try:
+    import onnxruntime as ort
+except ImportError:
+    ort = None
+
 from PIL import Image
 
 from .preprocessor import Preprocessor
@@ -40,7 +45,14 @@ class OnnxClip:
 
         Raises:
             RuntimeError: If model files are missing or initialization fails.
+            ImportError: If onnxruntime is not installed.
         """
+        if ort is None:
+            raise ImportError(
+                "onnxruntime is not installed. Please install it with `pip install modern-onnx-clip[cpu]` "
+                "or `pip install modern-onnx-clip[gpu]` depending on your hardware."
+            )
+
         self.model_dir = model_dir
         self.logger = logging.getLogger("OnnxClip")
         if not silent:
