@@ -134,10 +134,10 @@ class Exporter:
             (dummy_input_text,),
             os.path.join(self.output_dir, "textual.onnx"),
             input_names=["text"],
-            output_names=["embedding"],
+            output_names=["text_embedding"],
             dynamic_axes={
                 "text": {0: "batch_size"},
-                "embedding": {0: "batch_size"},
+                "text_embedding": {0: "batch_size"},
             },
             opset_version=self.opset,
         )
