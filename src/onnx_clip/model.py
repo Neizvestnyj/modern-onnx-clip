@@ -182,7 +182,7 @@ class OnnxClip:
             tokens = np.array(padded_ids, dtype=np.int64)
         else:
             # SimpleTokenizer logic
-            tokens = self._tokenizer.tokenize(texts, context_length=context_length)
+            tokens = self._tokenizer.tokenize(texts, context_length=context_length)  # type: ignore
 
         input_name = self.textual_session.get_inputs()[0].name
         output_name = self.textual_session.get_outputs()[0].name
